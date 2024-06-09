@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './index.css';
+import { Box } from '@chakra-ui/react';
+import Hero from './components/Hero';
+import PostPage from './components/PostPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Box className="bg-gray-100 min-h-screen">
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/post" element={<PostPage />} />
+          {/* Add more routes here */}
+        </Routes>
+      </Box>
+    </Router>
   );
 }
 
