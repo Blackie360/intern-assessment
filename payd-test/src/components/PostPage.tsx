@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { Box, Icon, Text } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { RiAddLine, RiHome2Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-import { RiHome2Line, RiAddLine } from 'react-icons/ri';
-import { ChakraProvider, Box, Text, Icon } from '@chakra-ui/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Post {
   id: number;
@@ -15,6 +18,16 @@ const PostPage: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
+    toast.info('Welcome!', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+    });
+
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
       .then((data: Post[]) =>
@@ -37,42 +50,50 @@ const PostPage: React.FC = () => {
   };
 
   return (
-    <ChakraProvider>
-      <Box>
-      <Box p={4} display="flex" justifyContent="space-between" alignItems="center">
-  <Link to="/" className="flex items-center text-gray-800 hover:text-gray-600">
-    <Icon as={RiHome2Line} boxSize={6} color="gray.800" />
-    Home
-  </Link>
-  <Link to="/add" className="flex items-center text-gray-800 hover:text-gray-600">
-    <Icon as={RiAddLine} boxSize={6} color="green.800" />
-    Add Post
-  </Link>
-</Box>
-        <Text fontSize="xl" fontWeight="bold" mb={4} textAlign="center">
-          Posts
-        </Text>
-        <Box display="grid" gridTemplateColumns="repeat(auto-fill, minmax(250px, 1fr))" gap={4} p={4}>
-          {posts.map(post => (
-            <Box
-              key={post.id}
-              bg="white"
-              rounded="lg"
-              boxShadow={`0 4px 6px ${post.shadowColor}`}
-              p={4}
-            >
-              <Text fontSize="xl" fontWeight="semibold" mb={2}>
-                {post.title}
-              </Text>
-              <Text color="gray.600">{post.body}</Text>
-              <Text color="gray.600" mt={2}>
-                User ID: {post.userId}
-              </Text>
-            </Box>
-          ))}
+    
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <Box>
+          <Box p={4} display="flex" justifyContent="space-between" alignItems="center">
+            <Link to="/" className="flex items-center text-gray-800 hover:text-gray-600">
+              <Icon as={RiHome2Line} boxSize={6} color="gray.800" />
+              Home
+            </Link>
+            <Link to="/add" className="flex items-center text-gray-800 hover:text-gray-600">
+              <Icon as={RiAddLine} boxSize={6} color="green.800" />
+              Add Post
+            </Link>
+          </Box>
+          <Text fontSize="xl" fontWeight="bold" mb={4} textAlign="center">
+            Posts
+          </Text>
+          <Box display="grid" gridTemplateColumns="repeat(auto-fill, minmax(250px, 1fr))" gap={4} p={4}>
+            {posts.map(post => (
+              <motion.div
+                key={post.id}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Box
+                  bg="white"
+                  rounded="lg"
+                  boxShadow={`0 4px 6px ${post.shadowColor}`}
+                  p={4}
+                >
+                  <Text fontSize="xl" fontWeight="semibold" mb={2}>
+                    {post.title}
+                  </Text>
+                  <Text color="gray.600">{post.body}</Text>
+                  <Text color="gray.600" mt={2}>
+                    User ID: {post.userId}
+                  </Text>
+                </Box>
+              </motion.div>
+            ))}
+          </Box>
+          <ToastContainer />
         </Box>
-      </Box>
-    </ChakraProvider>
+      </motion.div>
+    
   );
 };
 

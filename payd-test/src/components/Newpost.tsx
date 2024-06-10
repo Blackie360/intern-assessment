@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Button, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
 
 interface NewPostProps {}
 
@@ -29,10 +33,10 @@ const NewPost: React.FC<NewPostProps> = () => {
       setTitle('');
       setBody('');
       setUserId('');
-      alert('Post created successfully!');
+      toast.success('Post created successfully!');
     } catch (error) {
-      console.error('Error creating post:', error);
-      alert('Failed to create post');
+     
+      toast.error('Failed to create post');
     }
   };
 
@@ -45,6 +49,12 @@ const NewPost: React.FC<NewPostProps> = () => {
       maxWidth="500px"
       margin="auto"
     >
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Link to="/post" className="flex items-center text-gray-800 mb-4">
+          <AiOutlineArrowLeft className="mr-2" />
+          Back
+        </Link>
+      </motion.div>
       <form onSubmit={handleSubmit}>
         <FormControl id="title" mb={4}>
           <FormLabel>Title</FormLabel>
