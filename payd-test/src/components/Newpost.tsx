@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, FormControl, FormLabel, Input, Textarea, VStack } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { motion } from 'framer-motion';
@@ -35,7 +35,7 @@ const NewPost: React.FC<NewPostProps> = () => {
       setUserId('');
       toast.success('Post created successfully!');
     } catch (error) {
-      console.error('Error creating post:', error);
+     
       toast.error('Failed to create post');
     }
   };
@@ -55,7 +55,7 @@ const NewPost: React.FC<NewPostProps> = () => {
           Back
         </Link>
       </motion.div>
-      <VStack spacing={4} align="start">
+      <form onSubmit={handleSubmit}>
         <FormControl id="title" mb={4}>
           <FormLabel>Title</FormLabel>
           <Input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
@@ -68,10 +68,8 @@ const NewPost: React.FC<NewPostProps> = () => {
           <FormLabel>User ID</FormLabel>
           <Input type="number" value={userId} onChange={(e) => setUserId(Number(e.target.value))} required />
         </FormControl>
-        <form onSubmit={handleSubmit}>
-          <Button type="submit" colorScheme="teal" w="full">Submit</Button>
-        </form>
-      </VStack>
+        <Button type="submit" colorScheme="teal">Submit</Button>
+      </form>
     </Box>
   );
 };
