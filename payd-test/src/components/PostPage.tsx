@@ -1,14 +1,18 @@
-
-
 import React, { useState, useEffect } from 'react';
 
-const PostPage = () => {
-  const [posts, setPosts] = useState([]);
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+}
+
+const PostPage: React.FC = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
-      .then(data => setPosts(data))
+      .then((data: Post[]) => setPosts(data))
       .catch(error => console.error('Error fetching posts: ', error));
   }, []);
 

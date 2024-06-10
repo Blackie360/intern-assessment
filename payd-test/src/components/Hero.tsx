@@ -1,13 +1,7 @@
-
-import { useNavigate } from 'react-router-dom';
 import { Box, Flex, Heading, Text, Button, Image } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
-    const navigate = useNavigate();
-
-    const handleButtonClick = () => {
-      navigate('/post');
-    };
   return (
     <Box className="container mx-auto px-4 py-16">
       <Flex direction={{ base: 'column', md: 'row' }} align="center">
@@ -18,9 +12,11 @@ const Hero = () => {
           <Text fontSize="lg" mb="6">
             Join our community of book lovers. Explore, share, and discuss your favorite reads.
           </Text>
-          <Button colorScheme="teal" size="lg"  onClick={handleButtonClick}>
+         <Link to="/post">
+         <Button colorScheme="teal" size="lg">
             Get Started
           </Button>
+         </Link>
         </Box>
         <Box flex="1" textAlign="center">
           <Image
@@ -28,6 +24,8 @@ const Hero = () => {
             alt="Books"
             borderRadius="md"
             className="mx-auto"
+            maxW={{ base: '80%', md: '100%' }}
+            h="auto"
           />
         </Box>
       </Flex>
